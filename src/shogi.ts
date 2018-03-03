@@ -393,8 +393,8 @@ export default class Shogi {
                 color: Color.Black,
                 board,
                 hands: [
-                    hands[Color.White],
                     hands[Color.Black],
+                    hands[Color.White],
                 ],
             },
         })
@@ -409,7 +409,7 @@ export default class Shogi {
                     board[2 - x][2 - y] = {};
                 } else {
                     board[2 - x][2 - y] = {
-                        color: piece.color,
+                        color: piece.color === Color.Black ? Color.White : Color.Black,
                         kind: piece.kind,
                     };
                 }
@@ -428,8 +428,8 @@ export default class Shogi {
                 color: Color.Black,
                 board,
                 hands: [
-                    hands[Color.Black],
                     hands[Color.White],
+                    hands[Color.Black],
                 ],
             },
         })

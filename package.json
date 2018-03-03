@@ -1,6 +1,6 @@
 {
   "name": "shogi9.js",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Fork of shogi.js which implements 9-masu shogi",
   "main": "lib/shogi.js",
   "directories": {

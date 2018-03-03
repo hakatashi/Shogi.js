@@ -587,8 +587,8 @@ class Shogi {
                 color: Color_1.default.Black,
                 board,
                 hands: [
-                    hands[Color_1.default.White],
                     hands[Color_1.default.Black],
+                    hands[Color_1.default.White],
                 ],
             },
         });
@@ -604,7 +604,7 @@ class Shogi {
                 }
                 else {
                     board[2 - x][2 - y] = {
-                        color: piece.color,
+                        color: piece.color === Color_1.default.Black ? Color_1.default.White : Color_1.default.Black,
                         kind: piece.kind,
                     };
                 }
@@ -623,8 +623,8 @@ class Shogi {
                 color: Color_1.default.Black,
                 board,
                 hands: [
-                    hands[Color_1.default.Black],
                     hands[Color_1.default.White],
+                    hands[Color_1.default.Black],
                 ],
             },
         });
