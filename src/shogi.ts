@@ -8,206 +8,6 @@ import Color from "./Color";
 import Piece from "./Piece";
 import "./polyfills";
 export default class Shogi {
-    // 既定の初期局面
-    public static preset: {[index: string]: {board: string[]; turn: Color; }} = {
-        "HIRATE": {
-            board: [
-                "-KY-KE-GI-KI-OU-KI-GI-KE-KY",
-                " * -HI *  *  *  *  * -KA * ",
-                "-FU-FU-FU-FU-FU-FU-FU-FU-FU",
-                " *  *  *  *  *  *  *  *  * ",
-                " *  *  *  *  *  *  *  *  * ",
-                " *  *  *  *  *  *  *  *  * ",
-                "+FU+FU+FU+FU+FU+FU+FU+FU+FU",
-                " * +KA *  *  *  *  * +HI * ",
-                "+KY+KE+GI+KI+OU+KI+GI+KE+KY",
-            ],
-            turn: Color.Black,
-        },
-        "KY": {
-            board: [
-                "-KY-KE-GI-KI-OU-KI-GI-KE * ",
-                " * -HI *  *  *  *  * -KA * ",
-                "-FU-FU-FU-FU-FU-FU-FU-FU-FU",
-                " *  *  *  *  *  *  *  *  * ",
-                " *  *  *  *  *  *  *  *  * ",
-                " *  *  *  *  *  *  *  *  * ",
-                "+FU+FU+FU+FU+FU+FU+FU+FU+FU",
-                " * +KA *  *  *  *  * +HI * ",
-                "+KY+KE+GI+KI+OU+KI+GI+KE+KY",
-            ],
-            turn: Color.White,
-        },
-        "KY_R": {
-            board: [
-                " * -KE-GI-KI-OU-KI-GI-KE-KY",
-                " * -HI *  *  *  *  * -KA * ",
-                "-FU-FU-FU-FU-FU-FU-FU-FU-FU",
-                " *  *  *  *  *  *  *  *  * ",
-                " *  *  *  *  *  *  *  *  * ",
-                " *  *  *  *  *  *  *  *  * ",
-                "+FU+FU+FU+FU+FU+FU+FU+FU+FU",
-                " * +KA *  *  *  *  * +HI * ",
-                "+KY+KE+GI+KI+OU+KI+GI+KE+KY",
-            ],
-            turn: Color.White,
-        },
-        "KA": { // tslint:disable-line object-literal-sort-keys
-            board: [
-                "-KY-KE-GI-KI-OU-KI-GI-KE-KY",
-                " * -HI *  *  *  *  *  *  * ",
-                "-FU-FU-FU-FU-FU-FU-FU-FU-FU",
-                " *  *  *  *  *  *  *  *  * ",
-                " *  *  *  *  *  *  *  *  * ",
-                " *  *  *  *  *  *  *  *  * ",
-                "+FU+FU+FU+FU+FU+FU+FU+FU+FU",
-                " * +KA *  *  *  *  * +HI * ",
-                "+KY+KE+GI+KI+OU+KI+GI+KE+KY",
-            ],
-            turn: Color.White,
-        },
-        "HI": {
-            board: [
-                "-KY-KE-GI-KI-OU-KI-GI-KE-KY",
-                " *  *  *  *  *  *  * -KA * ",
-                "-FU-FU-FU-FU-FU-FU-FU-FU-FU",
-                " *  *  *  *  *  *  *  *  * ",
-                " *  *  *  *  *  *  *  *  * ",
-                " *  *  *  *  *  *  *  *  * ",
-                "+FU+FU+FU+FU+FU+FU+FU+FU+FU",
-                " * +KA *  *  *  *  * +HI * ",
-                "+KY+KE+GI+KI+OU+KI+GI+KE+KY",
-            ],
-            turn: Color.White,
-        },
-        "HIKY": {
-            board: [
-                "-KY-KE-GI-KI-OU-KI-GI-KE * ",
-                " *  *  *  *  *  *  * -KA * ",
-                "-FU-FU-FU-FU-FU-FU-FU-FU-FU",
-                " *  *  *  *  *  *  *  *  * ",
-                " *  *  *  *  *  *  *  *  * ",
-                " *  *  *  *  *  *  *  *  * ",
-                "+FU+FU+FU+FU+FU+FU+FU+FU+FU",
-                " * +KA *  *  *  *  * +HI * ",
-                "+KY+KE+GI+KI+OU+KI+GI+KE+KY",
-            ],
-            turn: Color.White,
-        },
-        "2": {
-            board: [
-                "-KY-KE-GI-KI-OU-KI-GI-KE-KY",
-                " *  *  *  *  *  *  *  *  * ",
-                "-FU-FU-FU-FU-FU-FU-FU-FU-FU",
-                " *  *  *  *  *  *  *  *  * ",
-                " *  *  *  *  *  *  *  *  * ",
-                " *  *  *  *  *  *  *  *  * ",
-                "+FU+FU+FU+FU+FU+FU+FU+FU+FU",
-                " * +KA *  *  *  *  * +HI * ",
-                "+KY+KE+GI+KI+OU+KI+GI+KE+KY",
-            ],
-            turn: Color.White,
-        },
-        "3": {
-            board: [
-                "-KY-KE-GI-KI-OU-KI-GI-KE * ",
-                " *  *  *  *  *  *  *  *  * ",
-                "-FU-FU-FU-FU-FU-FU-FU-FU-FU",
-                " *  *  *  *  *  *  *  *  * ",
-                " *  *  *  *  *  *  *  *  * ",
-                " *  *  *  *  *  *  *  *  * ",
-                "+FU+FU+FU+FU+FU+FU+FU+FU+FU",
-                " * +KA *  *  *  *  * +HI * ",
-                "+KY+KE+GI+KI+OU+KI+GI+KE+KY",
-            ],
-            turn: Color.White,
-        },
-        "4": {
-            board: [
-                " * -KE-GI-KI-OU-KI-GI-KE * ",
-                " *  *  *  *  *  *  *  *  * ",
-                "-FU-FU-FU-FU-FU-FU-FU-FU-FU",
-                " *  *  *  *  *  *  *  *  * ",
-                " *  *  *  *  *  *  *  *  * ",
-                " *  *  *  *  *  *  *  *  * ",
-                "+FU+FU+FU+FU+FU+FU+FU+FU+FU",
-                " * +KA *  *  *  *  * +HI * ",
-                "+KY+KE+GI+KI+OU+KI+GI+KE+KY",
-            ],
-            turn: Color.White,
-        },
-        "5": {
-            board: [
-                " *  * -GI-KI-OU-KI-GI-KE * ",
-                " *  *  *  *  *  *  *  *  * ",
-                "-FU-FU-FU-FU-FU-FU-FU-FU-FU",
-                " *  *  *  *  *  *  *  *  * ",
-                " *  *  *  *  *  *  *  *  * ",
-                " *  *  *  *  *  *  *  *  * ",
-                "+FU+FU+FU+FU+FU+FU+FU+FU+FU",
-                " * +KA *  *  *  *  * +HI * ",
-                "+KY+KE+GI+KI+OU+KI+GI+KE+KY",
-            ],
-            turn: Color.White,
-        },
-        "5_L": {
-            board: [
-                " * -KE-GI-KI-OU-KI-GI *  * ",
-                " *  *  *  *  *  *  *  *  * ",
-                "-FU-FU-FU-FU-FU-FU-FU-FU-FU",
-                " *  *  *  *  *  *  *  *  * ",
-                " *  *  *  *  *  *  *  *  * ",
-                " *  *  *  *  *  *  *  *  * ",
-                "+FU+FU+FU+FU+FU+FU+FU+FU+FU",
-                " * +KA *  *  *  *  * +HI * ",
-                "+KY+KE+GI+KI+OU+KI+GI+KE+KY",
-            ],
-            turn: Color.White,
-        },
-        "6": {
-            board: [
-                " *  * -GI-KI-OU-KI-GI *  * ",
-                " *  *  *  *  *  *  *  *  * ",
-                "-FU-FU-FU-FU-FU-FU-FU-FU-FU",
-                " *  *  *  *  *  *  *  *  * ",
-                " *  *  *  *  *  *  *  *  * ",
-                " *  *  *  *  *  *  *  *  * ",
-                "+FU+FU+FU+FU+FU+FU+FU+FU+FU",
-                " * +KA *  *  *  *  * +HI * ",
-                "+KY+KE+GI+KI+OU+KI+GI+KE+KY",
-            ],
-            turn: Color.White,
-        },
-        "8": {
-            board: [
-                " *  *  * -KI-OU-KI *  *  * ",
-                " *  *  *  *  *  *  *  *  * ",
-                "-FU-FU-FU-FU-FU-FU-FU-FU-FU",
-                " *  *  *  *  *  *  *  *  * ",
-                " *  *  *  *  *  *  *  *  * ",
-                " *  *  *  *  *  *  *  *  * ",
-                "+FU+FU+FU+FU+FU+FU+FU+FU+FU",
-                " * +KA *  *  *  *  * +HI * ",
-                "+KY+KE+GI+KI+OU+KI+GI+KE+KY",
-            ],
-            turn: Color.White,
-        },
-        "10": {
-            board: [
-                " *  *  *  * -OU *  *  *  * ",
-                " *  *  *  *  *  *  *  *  * ",
-                "-FU-FU-FU-FU-FU-FU-FU-FU-FU",
-                " *  *  *  *  *  *  *  *  * ",
-                " *  *  *  *  *  *  *  *  * ",
-                " *  *  *  *  *  *  *  *  * ",
-                "+FU+FU+FU+FU+FU+FU+FU+FU+FU",
-                " * +KA *  *  *  *  * +HI * ",
-                "+KY+KE+GI+KI+OU+KI+GI+KE+KY",
-            ],
-            turn: Color.White,
-        },
-    };
-
     private static getIllegalUnpromotedRow(kind: string) {
         switch (kind) {
             case "FU":
@@ -221,7 +21,7 @@ export default class Shogi {
     }
     // 手番の相手側から数えた段数
     private static getRowToOppositeEnd(y: number, color: Color) {
-        return color === Color.Black ? y : 10 - y;
+        return color === Color.Black ? y : 4 - y;
     }
     public board: Piece[][]; // 盤面
     public hands: Piece[][]; // 持ち駒
@@ -235,32 +35,23 @@ export default class Shogi {
     public initialize(setting: ISettingType = {preset: "HIRATE"}): void {
         this.board = [];
         if (setting.preset !== "OTHER") {
-            for (let i = 0; i < 9; i++) {
-                this.board[i] = [];
-                for (let j = 0; j < 9; j++) {
-                    const csa: string = Shogi.preset[setting.preset].board[j].slice(24 - i * 3, 24 - i * 3 + 3);
-                    this.board[i][j] = csa === " * " ? null : new Piece(csa);
-                }
+            throw new Error();
+        }
+        for (let i = 0; i < 3; i++) {
+            this.board[i] = [];
+            for (let j = 0; j < 3; j++) {
+                const p = setting.data.board[i][j];
+                this.board[i][j] = p.kind ? new Piece((p.color === Color.Black ? "+" : "-") + p.kind) : null;
             }
-            this.turn = Shogi.preset[setting.preset].turn;
-            this.hands = [[], []];
-        } else {
-            for (let i = 0; i < 9; i++) {
-                this.board[i] = [];
-                for (let j = 0; j < 9; j++) {
-                    const p = setting.data.board[i][j];
-                    this.board[i][j] = p.kind ? new Piece((p.color === Color.Black ? "+" : "-") + p.kind) : null;
-                }
-            }
-            this.turn = setting.data.color;
-            this.hands = [[], []];
-            for (let c = 0; c < 2; c++) {
-                for (const k in setting.data.hands[c]) {
-                    if (setting.data.hands[c].hasOwnProperty(k)) {
-                        const csa = (c === 0 ? "+" : "-") + k;
-                        for (let i = 0; i < setting.data.hands[c][k]; i++) {
-                            this.hands[c].push(new Piece(csa));
-                        }
+        }
+        this.turn = setting.data.color;
+        this.hands = [[], []];
+        for (let c = 0; c < 2; c++) {
+            for (const k in setting.data.hands[c]) {
+                if (setting.data.hands[c].hasOwnProperty(k)) {
+                    const csa = (c === 0 ? "+" : "-") + k;
+                    for (let i = 0; i < setting.data.hands[c][k]; i++) {
+                        this.hands[c].push(new Piece(csa));
                     }
                 }
             }
@@ -271,15 +62,15 @@ export default class Shogi {
     // SFENによる盤面表現の文字列で盤面を初期化する
     public initializeFromSFENString(sfen: string): void {
         this.board = [];
-        for (let i = 0; i < 9; i++) {
+        for (let i = 0; i < 3; i++) {
             this.board[i] = [];
-            for (let j = 0; j < 9; j++) {
+            for (let j = 0; j < 3; j++) {
                 this.board[i][j] = null;
             }
         }
         const segments = sfen.split(" ");
         const sfenBoard = segments[0];
-        let x = 8;
+        let x = 2;
         let y = 0;
         for (let i = 0; i < sfenBoard.length; i++) {
             let c = sfenBoard[i];
@@ -292,7 +83,7 @@ export default class Shogi {
                 x -= Number(c);
             } else if (c === "/") {
                 y++;
-                x = 8;
+                x = 2;
             } else {
                 this.board[x][y] = Piece.fromSFENString(c);
                 x--;
@@ -419,10 +210,10 @@ export default class Shogi {
     public toSFENString(moveCount= 1): string {
         const ret = [];
         const sfenBoard = [];
-        for (let y = 0; y < 9; y++) {
+        for (let y = 0; y < 3; y++) {
             let line = "";
             let empty = 0;
-            for (let x = 8; x >= 0; x--) {
+            for (let x = 2; x >= 0; x--) {
                 const piece = this.board[x][y];
                 if (piece == null) {
                     empty++;
@@ -468,7 +259,7 @@ export default class Shogi {
     public getMovesFrom(x: number, y: number): IMove[] {
         // 盤外かもしれない(x, y)にcolorの駒が移動しても問題がないか
         const legal = function(x: number, y: number, color: Color) {
-            if (x < 1 || 9 < x || y < 1 || 9 < y) { return false; }
+            if (x < 1 || 3 < x || y < 1 || 3 < y) { return false; }
             const piece = this.get(x, y);
             return piece == null || piece.color !== color;
         }.bind(this);
@@ -507,9 +298,9 @@ export default class Shogi {
         const ret = [];
         const places: Array<{x: number, y: number}> = [];
         const fuExistsArray = [];
-        for (let i = 1; i <= 9; i++) {
+        for (let i = 1; i <= 3; i++) {
             let fuExists = false;
-            for (let j = 1; j <= 9; j++) {
+            for (let j = 1; j <= 3; j++) {
                 const piece = this.get(i, j);
                 if (piece == null) {
                     places.push({x: i, y: j});
@@ -541,8 +332,8 @@ export default class Shogi {
     public getMovesTo(x: number, y: number, kind: string, color: Color = this.turn): IMove[] {
         const to = {x, y};
         const ret = [];
-        for (let i = 1; i <= 9; i++) {
-            for (let j = 1; j <= 9; j++) {
+        for (let i = 1; i <= 3; i++) {
+            for (let j = 1; j <= 3; j++) {
                 const piece = this.get(i, j);
                 if (!piece || piece.kind !== kind || piece.color !== color) { continue; }
                 const moves = this.getMovesFrom(i, j);

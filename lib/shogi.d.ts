@@ -8,12 +8,6 @@ import Color from "./Color";
 import Piece from "./Piece";
 import "./polyfills";
 export default class Shogi {
-    static preset: {
-        [index: string]: {
-            board: string[];
-            turn: Color;
-        };
-    };
     private static getIllegalUnpromotedRow(kind);
     private static getRowToOppositeEnd(y, color);
     board: Piece[][];
