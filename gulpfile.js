@@ -31,6 +31,7 @@ gulp.task('typescript', ['clean-lib'], function(cb){
 	var result = gulp.src(SRC_FILE)
 		.pipe(typescript({
 			module: "commonjs",
+			target: "ES2017",
 			declarationFiles: true,
 			noEmitOnError: true,
 			outDir: LIB_DIR,

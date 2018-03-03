@@ -364,6 +364,76 @@ export default class Shogi {
         }
         return ret;
     }
+    // クローン
+    public clone() {
+        const board = Array(3).fill(null).map((_) => Array(3).fill(null));
+        for (const x of Array(3).keys()) {
+            for (const y of Array(3).keys()) {
+                const piece = this.get(x + 1, y + 1);
+                if (!piece) {
+                    board[x][y] = {};
+                } else {
+                    board[x][y] = {
+                        color: piece.color,
+                        kind: piece.kind,
+                    };
+                }
+            }
+        }
+        const hands = this.hands.map((currentHands) => {
+            const newHands = {HI: 0, KY: 0, KE: 0, GI: 0, KI: 0, KA: 0, FU: 0};
+            for (const piece of currentHands) {
+                newHands[piece.kind]++;
+            }
+            return newHands;
+        });
+        return new Shogi({
+            preset: 'OTHER',
+            data: {
+                color: Color.Black,
+                board,
+                hands: [
+                    hands[Color.White],
+                    hands[Color.Black],
+                ],
+            },
+        })
+    }
+    // 盤面全体を反転する
+    public inverse() {
+        const board = Array(3).fill(null).map((_) => Array(3).fill(null));
+        for (const x of Array(3).keys()) {
+            for (const y of Array(3).keys()) {
+                const piece = this.get(x + 1, y + 1);
+                if (!piece) {
+                    board[2 - x][2 - y] = {};
+                } else {
+                    board[2 - x][2 - y] = {
+                        color: piece.color,
+                        kind: piece.kind,
+                    };
+                }
+            }
+        }
+        const hands = this.hands.map((currentHands) => {
+            const newHands = {HI: 0, KY: 0, KE: 0, GI: 0, KI: 0, KA: 0, FU: 0};
+            for (const piece of currentHands) {
+                newHands[piece.kind]++;
+            }
+            return newHands;
+        });
+        return new Shogi({
+            preset: 'OTHER',
+            data: {
+                color: Color.Black,
+                board,
+                hands: [
+                    hands[Color.Black],
+                    hands[Color.White],
+                ],
+            },
+        })
+    }
 
     // 以下editModeでの関数
 

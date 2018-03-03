@@ -31,6 +31,8 @@ export default class Shogi {
     getHandsSummary(color: Color): {
         [index: string]: number;
     };
+    clone(): Shogi;
+    inverse(): Shogi;
     captureByColor(x: number, y: number, color: Color): void;
     flip(x: number, y: number): boolean;
     setTurn(color: Color): void;
